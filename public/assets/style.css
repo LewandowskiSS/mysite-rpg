@@ -86,3 +86,50 @@ button:active { background: #d97706; }
 .notice { background: #052e16; border: 1px solid #15803d; color: #bbf7d0; }
 p { margin: 2px 0; }
 
+/* Кнопка с круговым cooldown-кольцом */
+.btn-ring {
+    position: relative;
+    width: 200px;
+    height: 56px;
+}
+.ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+.ring-bg {
+    fill: none;
+    stroke: #334155;
+    stroke-width: 3;
+}
+.ring-fill {
+    fill: none;
+    stroke: #f59e0b;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s linear;
+}
+.walk-btn {
+    position: absolute;
+    inset: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    margin: 0;
+    background: #f59e0b;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.walk-btn:disabled {
+    background: #334155;
+    color: #64748b;
+    cursor: not-allowed;
+}
+.walk-btn:active:not(:disabled) {
+    background: #d97706;
+}

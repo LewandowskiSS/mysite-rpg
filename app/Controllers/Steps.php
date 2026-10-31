@@ -10,6 +10,9 @@ class Steps extends Controller
 {
     protected $userModel;
     protected $eventModel;
+    // Cooldown between walks, seconds.
+    public const COOLDOWN_SEC = 5;
+
 
     public function __construct()
     {
@@ -32,6 +35,14 @@ class Steps extends Controller
       
         $energyService = new \App\Services\EnergyService();
         $user = $energyService->regen($user);
+        // Cooldown check — prevent rapid clicking / auto-click.
+        if (! empty($user['last_walk_at'])) {
+            $lastWalk = strtotime($user['last_walk_at']);
+            $remaining = self::COOLDOWN_SEC - (time() - $lastWalk);
+            if ($remaining > 0) {
+                return redirect()->to('/')->with('error', 'Подождите немного перед следующим шагом.');
+            }
+        }
 
         // Energy check
         if ((int) $user['energy'] < 1) {
@@ -73,12 +84,13 @@ class Steps extends Controller
         }
 
         $this->userModel->update($user['id'], [
-            'gold'   => $gold,
-            'exp'    => $exp,
-            'hp'     => $hp,
-            'energy' => $energy,
-            'level'  => $level,
+            'gold'         => $gold,
+            'exp'          => $exp,
+            'hp'           => $hp,
+            'energy'       => $energy,
+            'level'        => $level,
             'last_step_at' => date('Y-m-d H:i:s'),
+            'last_walk_at' => date('Y-m-d H:i:s'),
         ]);
 
         $message = $event['text'];
