@@ -20,14 +20,16 @@ class Game extends Controller
             return redirect()->to('login');
         }
 
-        $energyService = new \App\Services\EnergyService();
         $user = $this->userModel->find(session()->get('user_id'));
-        $user = $energyService->regen($user);
 
         if (! $user) {
             session()->destroy();
             return redirect()->to('login');
         }
+    
+        $energyService = new \App\Services\EnergyService();
+        $user = $energyService->regen($user);
+
 
         // Calculate remaining cooldown for the walk button (seconds).
         $cooldownRemaining = 0;
