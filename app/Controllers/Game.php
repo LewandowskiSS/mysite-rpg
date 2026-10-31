@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use CodeIgniter\Controller;
 
-class Game extends Controller
+class Game extends BaseController
 {
     protected $userModel;
 

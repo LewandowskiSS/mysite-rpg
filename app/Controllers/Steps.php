@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Event;
 use CodeIgniter\Controller;
 
-class Steps extends Controller
+class Steps extends BaseController
 {
     protected $userModel;
     protected $eventModel;
