@@ -6,7 +6,7 @@
     <title><?= esc($title ?? 'MySite RPG') ?></title>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
-< class="bg-gray-900 text-gray-100 min-h-screen">
+<body>
     <header>
         <div class="wrap flex-between">
             <a href="/" class="logo">MySite RPG</a>

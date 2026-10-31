@@ -31,17 +31,7 @@
         </div>
         <p style="font-size:.8rem;color:#94a3b8;margin-top:4px;"><?= esc($user['energy']) ?> / 10</p>
     </div>
-
-    <div style="margin-top:20px;display:flex;gap:12px;">
-        <div style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:#fbbf24;"><?= esc($user['gold']) ?></div>
-            <div style="font-size:.75rem;color:#94a3b8;">Золото</div>
-        </div>
-        <div style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:#60a5fa;"><?= esc($user['exp']) ?></div>
-            <div style="font-size:.75rem;color:#94a3b8;">Опыт</div>
-        </div>
-    </div>
+  
     <?php
         $cooldownSec = (int) ($cooldownRemaining ?? 0);
         $isCooling   = $cooldownSec > 0;
