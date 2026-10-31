@@ -29,6 +29,9 @@ class Steps extends Controller
             session()->destroy();
             return redirect()->to('login');
         }
+      
+        $energyService = new \App\Services\EnergyService();
+        $user = $energyService->regen($user);
 
         // Energy check
         if ((int) $user['energy'] < 1) {
@@ -46,6 +49,7 @@ class Steps extends Controller
         $hp     = (int) $user['hp'];
         $energy = (int) $user['energy'] - 1;
         $level  = (int) $user['level'];
+
 
         switch ($event['type']) {
             case 'gold':
@@ -74,6 +78,7 @@ class Steps extends Controller
             'hp'     => $hp,
             'energy' => $energy,
             'level'  => $level,
+            'last_step_at' => date('Y-m-d H:i:s'),
         ]);
 
         $message = $event['text'];
