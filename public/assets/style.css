@@ -133,3 +133,22 @@ p { margin: 2px 0; }
 .walk-btn:active:not(:disabled) {
     background: #d97706;
 }
+/* HUD в шапке */
+.hud {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-right: 8px;
+}
+.hud-item {
+    font-size: .75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    white-space: nowrap;
+}
+.hud-hp  { color: #f87171; }
+.hud-en  { color: #fbbf24; }
+.hud-gold{ color: #facc15; }
+.hud-lvl { color: #93c5fd; }

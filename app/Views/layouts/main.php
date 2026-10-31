@@ -11,8 +11,15 @@
         <div class="wrap flex-between">
             <a href="/" class="logo">MySite RPG</a>
             <nav>
-                <?php if (session()->get('user_id')): ?>
-                    <span class="username"><?= esc(session()->get('username')) ?></span>
+                <?php $cu = current_user(); ?>
+                <?php if ($cu): ?>
+                    <div class="hud">
+                        <span class="hud-item hud-hp">HP <?= esc($cu['hp']) ?>/100</span>
+                        <span class="hud-item hud-en">⚡<?= esc($cu['energy']) ?>/10</span>
+                        <span class="hud-item hud-gold">🪙<?= esc($cu['gold']) ?></span>
+                        <span class="hud-item hud-lvl">Ур.<?= esc($cu['level']) ?></span>
+                    </div>
+                    <span class="username"><?= esc($cu['username']) ?></span>
                     <a href="/logout" class="link-danger">Выйти</a>
                 <?php else: ?>
                     <a href="/login">Вход</a>
