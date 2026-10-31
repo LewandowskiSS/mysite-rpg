@@ -1,0 +1,4 @@
+.env
+vendor/
+writable/
+public/uploads/

@@ -1,0 +1,88 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Шапка */
+header {
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.logo { font-weight: 700; font-size: 1.1rem; color: #fbbf24; text-decoration: none; }
+nav { display: flex; gap: 8px; align-items: center; }
+nav .username { color: #94a3b8; font-size: .875rem; }
+nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: .9rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #334155;
+}
+nav a.link-accent { background: #f59e0b; color: #0f172a; font-weight: 600; }
+nav a.link-danger { background: #7f1d1d; color: #fecaca; }
+
+/* Контент */
+main { padding: 24px 16px 48px; }
+
+.card {
+    max-width: 420px;
+    margin: 24px auto 0;
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 24px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+h1 { color: #fbbf24; font-size: 1.4rem; margin-bottom: 16px; }
+.subtitle { color: #94a3b8; font-size: .875rem; margin-bottom: 20px; }
+
+/* Формы */
+label { display: block; font-size: .8rem; color: #94a3b8; margin: 14px 0 6px; }
+input {
+    width: 100%;
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #f1f5f9;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+input:focus { outline: none; border-color: #f59e0b; }
+button {
+    width: 100%;
+    margin-top: 20px;
+    background: #f59e0b;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+button:active { background: #d97706; }
+.form-footer { margin-top: 16px; font-size: .875rem; color: #94a3b8; text-align: center; }
+.form-footer a { color: #fbbf24; }
+
+/* Ошибки/уведомления */
+.errors, .notice {
+    padding: 12px;
+    border-radius: 10px;
+    font-size: .875rem;
+    margin-bottom: 16px;
+}
+.errors { background: #450a0a; border: 1px solid #b91c1c; color: #fecaca; }
+.notice { background: #052e16; border: 1px solid #15803d; color: #bbf7d0; }
+p { margin: 2px 0; }
+
