@@ -49,7 +49,8 @@
         $disabled    = $isCooling || $noEnergy;
     ?>
     <form action="/walk" method="post" style="margin-top:24px;display:flex;justify-content:center;">
-        <?= csrf_field() ?>
+      <input type="text" name="website" value="" style="display:none;" autocomplete="off" tabindex="-1">  
+      <?= csrf_field() ?>
         <div class="btn-ring" data-cooldown="<?= $cooldownSec ?>" data-disabled="<?= $disabled ? '1' : '0' ?>">
             <svg class="ring" viewBox="0 0 100 100">
                 <circle class="ring-bg" cx="50" cy="50" r="46"></circle>

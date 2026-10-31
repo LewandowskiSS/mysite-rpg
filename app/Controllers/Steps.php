@@ -25,6 +25,11 @@ class Steps extends Controller
         if (! session()->get('user_id')) {
             return redirect()->to('login');
         }
+        // Rate limit — prevent scripted auto-walk.
+        $throttler = \Config\Services::throttler();
+        if ($throttler->check(md5(session()->get('user_id') . 'walk'), 10, MINUTE) === false) {
+            return redirect()->to('/')->with('error', 'Слишком много действий. Попробуйте позже.');
+        }  
 
         $user = $this->userModel->find(session()->get('user_id'));
 
