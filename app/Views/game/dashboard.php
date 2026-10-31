@@ -1,6 +1,17 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+<?php if (session()->get('event_message')): ?>
+    <div class="notice" style="max-width:420px;margin:0 auto 16px;">
+        <p><?= esc(session()->get('event_message')) ?></p>
+    </div>
+<?php endif; ?>
+
+<?php if (session()->get('error')): ?>
+    <div class="errors" style="max-width:420px;margin:0 auto 16px;">
+        <p><?= esc(session()->get('error')) ?></p>
+    </div>
+<?php endif; ?>
 <div class="card">
     <h1><?= esc($user['username']) ?></h1>
     <p class="subtitle">Уровень <?= esc($user['level']) ?></p>
@@ -31,5 +42,11 @@
             <div style="font-size:.75rem;color:#94a3b8;">Опыт</div>
         </div>
     </div>
+    <form action="/walk" method="post" style="margin-top:20px;">
+        <?= csrf_field() ?>
+        <button type="submit" <?= ((int) $user['energy'] < 1) ? 'disabled style="background:#334155;color:#64748b;cursor:not-allowed;"' : '' ?>>
+            <?= ((int) $user['energy'] < 1) ? 'Нет энергии' : 'Путешествовать' ?>
+        </button>
+    </form>
 </div>
 <?= $this->endSection() ?>
