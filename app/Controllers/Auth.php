@@ -16,11 +16,18 @@ class Auth extends Controller
 
     public function register()
     {
+        if (session()->get('user_id')) {
+            return redirect()->to('/');
+        }
         return view('auth/register');
     }
 
     public function attemptRegister()
     {
+        if (session()->get('user_id')) {
+          return redirect()->to('/');
+        }
+
         $rules = [
             'username' => 'required|min_length[3]|max_length[30]|is_unique[users.username]',
             'email'    => 'required|valid_email|is_unique[users.email]',
@@ -49,11 +56,18 @@ class Auth extends Controller
 
     public function login()
     {
+        if (session()->get('user_id')) {
+            return redirect()->to('/');
+        }
         return view('auth/login');
     }
 
     public function attemptLogin()
     {
+        if (session()->get('user_id')) {
+          return redirect()->to('/');
+        }
+      
         $rules = [
             'username' => 'required',
             'password' => 'required',
