@@ -50,7 +50,10 @@ class Steps extends BaseController
         if ((int) $user['energy'] < 1) {
             return redirect()->to('/')->with('error', 'Недостаточно энергии. Отдохните немного.');
         }
-
+        // Death check — cannot walk while at 0 HP.
+        if ((int) $user['hp'] <= 0) {
+            return redirect()->to('/')->with('error', 'Вы без сил. Подождите восстановления HP.');
+        }
         // Pick event
         $event = $this->eventModel->pickRandom();
 
@@ -72,7 +75,8 @@ class Steps extends BaseController
                 $exp += $delta;
                 break;
             case 'hp':
-                $hp = max(0, min(100, $hp + $delta));
+                $maxHp = (new \App\Services\EnergyService())->maxHp($level);
+                $hp = max(0, min($maxHp, $hp + $delta));
                 break;
             case 'nothing':
                 break;

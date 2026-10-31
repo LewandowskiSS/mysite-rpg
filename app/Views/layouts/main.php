@@ -26,11 +26,12 @@
     </main>
     <?php $cu = current_user(); ?>
     <?php if ($cu): ?>
+    <?php $maxHp = (new \App\Services\EnergyService())->maxHp((int) $cu['level']); ?>
+
     <!-- Нижняя навигация -->
     <nav class="bottom-nav">
         <a href="/" class="bn-item bn-active">🏠 <span>Главная</span></a>
-        <button type="button" class="bn-item" onclick="document.getElementById('profileModal').classList.add('open')">
-            👤 <span>Профиль</span>
+        <button type="button" class="bn-item" onclick="document.getElementById('profileModal').classList.add('open')">👤 <span>Профиль</span>
         </button>
     </nav>
 
@@ -43,8 +44,8 @@
             </div>
 
             <div class="bar-block">
-                <div class="bar-label">HP <span><?= esc($cu['hp']) ?>/100</span></div>
-                <div class="bar"><div class="bar-fill bar-hp" style="width:<?= max(0, min(100, (int) $cu['hp'])) ?>%"></div></div>
+                <div class="bar-label">HP <span><?= esc($cu['hp']) ?>/<?= $maxHp ?></span></div>
+                <div class="bar"><div class="bar-fill bar-hp" style="width:<?= max(0, min(100, (int) $cu['hp'] / $maxHp * 100)) ?>%"></div></div>
             </div>
 
             <div class="bar-block">

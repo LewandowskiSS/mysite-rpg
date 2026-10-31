@@ -1,6 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+<?php $maxHp = (new \App\Services\EnergyService())->maxHp((int) $user['level']); ?>
 <?php if (session()->get('event_message')): ?>
     <div class="notice" style="max-width:420px;margin:0 auto 16px;">
         <p><?= esc(session()->get('event_message')) ?></p>
@@ -19,9 +20,9 @@
     <div style="margin-top:16px;">
         <label>HP</label>
         <div style="background:#334155;height:14px;border-radius:8px;overflow:hidden;">
-            <div style="width:<?= max(0, min(100, (int) $user['hp'])) ?>%;height:100%;background:#ef4444;"></div>
+            <div style="width:<?= max(0, min(100, (int) $user['hp'] / $maxHp * 100)) ?>%;height:100%;background:#ef4444;"></div>
         </div>
-        <p style="font-size:.8rem;color:#94a3b8;margin-top:4px;"><?= esc($user['hp']) ?> / 100</p>
+        <p style="font-size:.8rem;color:#94a3b8;margin-top:4px;"><?= esc($user['hp']) ?> / <?= $maxHp ?></p>
     </div>
 
     <div style="margin-top:16px;">
