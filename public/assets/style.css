@@ -152,3 +152,112 @@ p { margin: 2px 0; }
 .hud-en  { color: #fbbf24; }
 .hud-gold{ color: #facc15; }
 .hud-lvl { color: #93c5fd; }
+
+/* Нижняя навигация */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    background: #1e293b;
+    border-top: 1px solid #334155;
+    z-index: 50;
+}
+.bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 10px 0;
+    color: #94a3b8;
+    font-size: .7rem;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.bn-item span { font-size: .7rem; }
+.bn-active { color: #fbbf24; }
+.bn-item:active { color: #f59e0b; }
+
+/* Модалка профиля */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+}
+.modal.open { display: flex; }
+.modal-card {
+    width: 100%;
+    max-width: 340px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 16px 48px rgba(0,0,0,.5);
+}
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+}
+.modal-name { font-weight: 700; font-size: 1.1rem; color: #fbbf24; }
+.modal-lvl { font-size: .8rem; color: #93c5fd; }
+
+.bar-block { margin-bottom: 14px; }
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: .75rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+.bar {
+    background: #0f172a;
+    height: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.bar-fill { height: 100%; border-radius: 8px; }
+.bar-hp  { background: #ef4444; }
+.bar-en  { background: #f59e0b; }
+
+.modal-stats {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+}
+.stat {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+.stat span { display: block; font-size: 1.3rem; margin-bottom: 2px; }
+
+.modal-close {
+    width: 100%;
+    background: #334155;
+    color: #e2e8f0;
+    font-weight: 700;
+    padding: 12px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.modal-close:active { background: #475569; }
+
+/* Отступ снизу для контента, чтобы не перекрывался нижним баром */
+body { padding-bottom: 70px; }
