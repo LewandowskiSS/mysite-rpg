@@ -14,9 +14,14 @@
     </div>
 <?php endif; ?>
 <div class="card">
-    <h1><?= esc($user['username']) ?></h1>
-    <p class="subtitle">Уровень <?= esc($user['level']) ?></p>
-
+    <div class="profile-banner">
+        <div class="pb-avatar">🧙</div>
+        <div class="pb-info">
+            <div class="pb-name"><?= esc($user['username']) ?></div>
+            <div class="pb-meta">Ур. <?= esc($user['level']) ?> &nbsp;·&nbsp; <span class="pb-gold">🪙 <?= esc(number_format($user['gold'])) ?></span></div>
+        </div>
+    </div>
+    <div class="pb-expbar"><div class="pb-expfill" style="width:<?= max(0, min(100, (int) $user['exp'] / ($user['level'] * 100) * 100)) ?>%"></div></div>
     <div style="margin-top:16px;">
         <label>HP</label>
         <div style="background:#334155;height:14px;border-radius:8px;overflow:hidden;">
