@@ -28,6 +28,8 @@ abstract class BaseController extends Controller
      */
 
     // protected $session;
+    protected $currentUser = null;
+
 
     /**
      * @param CLIRequest|IncomingRequest $request
@@ -42,6 +44,16 @@ abstract class BaseController extends Controller
 
         // Caution: Do not edit this line.
         parent::initController($request, $response, $logger);
+        $userId = session()->get('user_id');
+        if ($userId) {
+            $userModel = new \App\Models\User();
+            $user = $userModel->find($userId);
+            if ($user) {
+                $energyService = new \App\Services\EnergyService();
+                $this->currentUser = $energyService->regen($user);
+            }
+        }
+
 
         // Preload any models, libraries, etc, here.
         // $this->session = service('session');
