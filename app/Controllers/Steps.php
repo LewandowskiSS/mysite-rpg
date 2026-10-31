@@ -31,15 +31,12 @@ class Steps extends Controller
             return redirect()->to('/')->with('error', 'Слишком много действий. Попробуйте позже.');
         }  
 
-        $user = $this->userModel->find(session()->get('user_id'));
-
+        $user = $this->currentUser;
+    
         if (! $user) {
             session()->destroy();
             return redirect()->to('login');
         }
-      
-        $energyService = new \App\Services\EnergyService();
-        $user = $energyService->regen($user);
         // Cooldown check — prevent rapid clicking / auto-click.
         if (! empty($user['last_walk_at'])) {
             $lastWalk = strtotime($user['last_walk_at']);
