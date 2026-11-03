@@ -72,6 +72,8 @@ function applyState(d) {
     $('battle-log').textContent = d.log;
 }
 
+let cooldownTimer = null;
+
 function startCooldown(sec) {
     sec = parseInt(sec, 10);
     if (isNaN(sec) || sec <= 0) {
@@ -80,11 +82,17 @@ function startCooldown(sec) {
     const btn = $('attack-btn');
     btn.disabled = true;
     let remain = sec;
+
+    if (cooldownTimer) {
+        clearInterval(cooldownTimer);
+    }
+
     btn.textContent = 'Перезарядка… ' + remain;
-    const t = setInterval(() => {
+    cooldownTimer = setInterval(() => {
         remain--;
         if (remain <= 0) {
-            clearInterval(t);
+            clearInterval(cooldownTimer);
+            cooldownTimer = null;
             btn.disabled = false;
             btn.textContent = 'Атаковать';
         } else {
@@ -99,7 +107,7 @@ $('attack-btn').addEventListener('click', () => {
     send('/battle/attack', 'POST').then(d => {
         if (d.status === 'cooldown') {
             $('battle-log').textContent = d.log;
-            startCooldown(d.remaining || 3);
+            startCooldown((d.remaining || 3) + 1);
             return;
         }
         if (d.status === 'no_energy') {
@@ -112,7 +120,7 @@ $('attack-btn').addEventListener('click', () => {
         if (d.ended) {
             setTimeout(() => location.href = '/', 1200);
         } else {
-            startCooldown(d.cooldown || d.remaining);
+            startCooldown(d.cooldown + 1);
         }
     }).catch(() => {
         btn.disabled = false;
