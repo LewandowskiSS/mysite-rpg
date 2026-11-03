@@ -211,11 +211,27 @@ class Battle extends BaseController
         }
 
         $message = implode(' ', $log) . $rewardMsg;
-
+    
+        // AJAX response (no page reload)
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'status'         => $status,
+                'monster_hp'     => max(0, $monsterHp),
+                'monster_max'    => (int) $monster['hp'],
+                'player_hp'      => $hp,
+                'player_max'     => $this->energyService->maxHp((int) $user['level']),
+                'energy'         => $energy,
+                'log'            => $message,
+                'cooldown'       => self::ATTACK_COOLDOWN,
+                'ended'          => $status !== 'active',
+                'rewards'        => $rewardMsg,
+            ]);
+        }
+    
         if ($status !== 'active') {
             return redirect()->to('/')->with('event_message', $message);
         }
-
+    
         return redirect()->to('battle')->with('event_message', $message);
     }
 
@@ -239,6 +255,14 @@ class Battle extends BaseController
         session()->remove('battle_id');
         session()->remove('battle_token');
 
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'status'  => 'fled',
+                'ended'   => true,
+                'log'     => 'Вы сбежали из боя.',
+            ]);
+        }
+      
         return redirect()->to('/')->with('event_message', 'Вы сбежали из боя.');
     }
 }
