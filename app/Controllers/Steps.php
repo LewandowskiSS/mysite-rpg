@@ -55,10 +55,6 @@ class Steps extends BaseController
             return redirect()->to('/')->with('error', 'Вы без сил. Подождите восстановления HP.');
         }
       
-        // Random encounter: 20% chance to start a battle instead of a normal event.
-        if (mt_rand(1, 100) <= 20) {
-            return redirect()->to('battle/start');
-        }
         // Pick event
         $event = $this->eventModel->pickRandom();
         // Random encounter: 20% chance to divert into a battle.
