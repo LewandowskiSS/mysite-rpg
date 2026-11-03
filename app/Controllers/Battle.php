@@ -78,6 +78,7 @@ class Battle extends BaseController
             'created_at'    => date('Y-m-d H:i:s'),
         ]);
 
+      
         session()->set('battle_id', $battleId);
         session()->set('battle_token', $token);
 
