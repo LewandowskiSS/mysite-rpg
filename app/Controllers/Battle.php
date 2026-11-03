@@ -137,12 +137,25 @@ class Battle extends BaseController
         if ($battle['last_attack_at']) {
             $remaining = self::ATTACK_COOLDOWN - (time() - strtotime($battle['last_attack_at']));
             if ($remaining > 0) {
+                if ($this->request->isAJAX()) {
+                    return $this->response->setJSON([
+                        'status'    => 'cooldown',
+                        'remaining' => $remaining,
+                        'log'       => 'Подождите перед следующей атакой.',
+                    ]);
+                }
                 return redirect()->to('battle')->with('error', 'Подождите перед следующей атакой.');
             }
         }
 
         // Energy check
         if ((int) $user['energy'] < 1) {
+            if ($this->request->isAJAX()) {
+                return $this->response->setJSON([
+                    'status' => 'no_energy',
+                    'log'    => 'Недостаточно энергии для атаки.',
+                ]);
+            }
             return redirect()->to('battle')->with('error', 'Недостаточно энергии для атаки.');
         }
 

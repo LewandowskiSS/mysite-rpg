@@ -63,6 +63,7 @@ function send(url, method) {
 }
 
 function applyState(d) {
+    if (d.monster_hp === undefined) return; // guard
     $('mhp-bar').style.width = Math.max(0, Math.min(100, d.monster_hp / d.monster_max * 100)) + '%';
     $('mhp-text').textContent = d.monster_hp + ' / ' + d.monster_max;
     $('php-bar').style.width = Math.max(0, Math.min(100, d.player_hp / d.player_max * 100)) + '%';
@@ -89,13 +90,28 @@ function startCooldown(sec) {
 }
 
 $('attack-btn').addEventListener('click', () => {
+    const btn = $('attack-btn');
+    btn.disabled = true;
     send('/battle/attack', 'POST').then(d => {
+        if (d.status === 'cooldown') {
+            $('battle-log').textContent = d.log;
+            startCooldown(d.remaining || 3);
+            return;
+        }
+        if (d.status === 'no_energy') {
+            $('battle-log').textContent = d.log;
+            btn.disabled = true;
+            btn.textContent = 'Нет энергии';
+            return;
+        }
         applyState(d);
         if (d.ended) {
             setTimeout(() => location.href = '/', 1200);
         } else {
             startCooldown(d.cooldown);
         }
+    }).catch(() => {
+        btn.disabled = false;
     });
 });
 
