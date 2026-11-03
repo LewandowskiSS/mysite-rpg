@@ -140,11 +140,6 @@ class Battle extends BaseController
             }
         }
 
-        $user = $this->currentUser;
-        if (! $user) {
-            return redirect()->to('login');
-        }
-
         // Energy check
         if ((int) $user['energy'] < 1) {
             return redirect()->to('battle')->with('error', 'Недостаточно энергии для атаки.');
