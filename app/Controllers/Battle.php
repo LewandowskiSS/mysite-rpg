@@ -121,12 +121,17 @@ class Battle extends BaseController
         if (! $userId) {
             return redirect()->to('login');
         }
-
+    
         $battle = $this->battleModel->findActiveByUser($userId);
         if (! $battle) {
             return redirect()->to('/')->with('error', 'Нет активного боя.');
         }
-
+    
+        $user = $this->currentUser;
+        if (! $user) {
+            return redirect()->to('login');
+        }
+    
         // Cooldown check
         if ($battle['last_attack_at']) {
             $remaining = self::ATTACK_COOLDOWN - (time() - strtotime($battle['last_attack_at']));
