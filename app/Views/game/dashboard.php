@@ -45,12 +45,11 @@
         $disabled    = $isCooling || $noEnergy;
     ?>
     <form action="/walk" method="post" style="margin-top:24px;display:flex;justify-content:center;">
-      <input type="text" name="website" value="" style="display:none;" autocomplete="off" tabindex="-1">  
-      <?= csrf_field() ?>
-        <div class="btn-ring" data-cooldown="<?= $cooldownSec ?>" data-disabled="<?= $disabled ? '1' : '0' ?>">
-            <svg class="ring" viewBox="0 0 100 56">
-                <rect class="ring-bg" x="1.5" y="1.5" width="97" height="53" rx="12"></rect>
-                <rect class="ring-fill" x="1.5" y="1.5" width="97" height="53" rx="12"></rect>
+        <?= csrf_field() ?>
+        <div class="btn-ring" data-cooldown="<?= $cooldownSec ?>">
+            <svg class="ring" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <rect class="ring-bg"   x="1.5" y="1.5" width="217" height="57" rx="14"></rect>
+                <rect class="ring-fill" x="1.5" y="1.5" width="217" height="57" rx="14"></rect>
             </svg>
             <button type="submit" class="walk-btn" <?= $disabled ? 'disabled' : '' ?>>
                 <?= $noEnergy ? 'Нет энергии' : 'Путешествовать' ?>
@@ -65,7 +64,7 @@
 
     var fill  = ring.querySelector('.ring-fill');
     var btn   = ring.querySelector('.walk-btn');
-    var C = 2 * (97 + 53) - 8 * 12 + 2 * Math.PI * 12; // perimeter of rounded rect // circumference of r=46
+    var C = 2 * (217 + 57) - 8 * 14 + 2 * Math.PI * 14; // perimeter of rounded rect 220x60 // perimeter of rounded rect // circumference of r=46
 
     fill.style.strokeDasharray  = C;
     fill.style.strokeDashoffset = C; // empty at start
