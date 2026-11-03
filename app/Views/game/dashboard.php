@@ -48,9 +48,9 @@
       <input type="text" name="website" value="" style="display:none;" autocomplete="off" tabindex="-1">  
       <?= csrf_field() ?>
         <div class="btn-ring" data-cooldown="<?= $cooldownSec ?>" data-disabled="<?= $disabled ? '1' : '0' ?>">
-            <svg class="ring" viewBox="0 0 100 100">
-                <circle class="ring-bg" cx="50" cy="50" r="46"></circle>
-                <circle class="ring-fill" cx="50" cy="50" r="46"></circle>
+            <svg class="ring" viewBox="0 0 100 56">
+                <rect class="ring-bg" x="1.5" y="1.5" width="97" height="53" rx="12"></rect>
+                <rect class="ring-fill" x="1.5" y="1.5" width="97" height="53" rx="12"></rect>
             </svg>
             <button type="submit" class="walk-btn" <?= $disabled ? 'disabled' : '' ?>>
                 <?= $noEnergy ? 'Нет энергии' : 'Путешествовать' ?>
@@ -65,7 +65,7 @@
 
     var fill  = ring.querySelector('.ring-fill');
     var btn   = ring.querySelector('.walk-btn');
-    var C = 2 * Math.PI * 46; // circumference of r=46
+    var C = 2 * (97 + 53) - 8 * 12 + 2 * Math.PI * 12; // perimeter of rounded rect // circumference of r=46
 
     fill.style.strokeDasharray  = C;
     fill.style.strokeDashoffset = C; // empty at start
