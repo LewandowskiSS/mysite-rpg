@@ -312,3 +312,34 @@ body { padding-bottom: 70px; }
     background: #6366f1;
     border-radius: 6px;
 }
+/* Бой */
+.battle-opponent {
+    background: #0c0c11;
+    border: 1px solid #1f2029;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+.battle-player {
+    background: #0c0c11;
+    border: 1px solid #1f2029;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 18px;
+}
+.opponent-name, .player-name { font-weight: 700; color: #fbbf24; margin-bottom: 8px; }
+.opponent-hp, .player-hp { font-size: .78rem; color: #8e8e93; margin-top: 4px; }
+.battle-actions { display: flex; flex-direction: column; gap: 10px; }
+
+.battle-resume {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    background: #5f1414;
+    color: #fecaca;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.battle-resume:active { background: #7f1d1d; }

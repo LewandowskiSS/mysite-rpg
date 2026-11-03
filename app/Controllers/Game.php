@@ -32,10 +32,13 @@ class Game extends BaseController
             $elapsed = time() - strtotime($user['last_walk_at']);
             $cooldownRemaining = max(0, \App\Controllers\Steps::COOLDOWN_SEC - $elapsed);
         }
+      
+        $activeBattle = (new \App\Models\Battle())->findActiveByUser($user['id']);
 
         return view('game/dashboard', [
             'user'              => $user,
             'cooldownRemaining' => $cooldownRemaining,
+            'activeBattle'      => $activeBattle,
         ]);
     }
 }

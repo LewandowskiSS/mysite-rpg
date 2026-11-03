@@ -54,9 +54,22 @@ class Steps extends BaseController
         if ((int) $user['hp'] <= 0) {
             return redirect()->to('/')->with('error', 'Вы без сил. Подождите восстановления HP.');
         }
+      
+        // Random encounter: 20% chance to start a battle instead of a normal event.
+        if (mt_rand(1, 100) <= 20) {
+            return redirect()->to('battle/start');
+        }
         // Pick event
         $event = $this->eventModel->pickRandom();
-
+        // Random encounter: 20% chance to divert into a battle.
+        if (mt_rand(1, 100) <= 20) {
+            // Consume 1 energy for the step, then start battle.
+            $this->userModel->update($user['id'], [
+                'energy'       => (int) $user['energy'] - 1,
+                'last_step_at' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->to('battle/start');
+        }
         // Apply effect
         $delta = mt_rand((int) $event['min_value'], (int) $event['max_value']);
 

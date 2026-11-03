@@ -56,6 +56,9 @@
             </button>
         </div>
     </form>
+    <?php if (! empty($activeBattle)): ?>
+      <a href="/battle" class="battle-resume">⚔️ Продолжить бой</a>
+    <?php endif; ?>
 </div>
 <script>
 (function () {
