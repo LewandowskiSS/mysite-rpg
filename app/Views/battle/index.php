@@ -73,6 +73,10 @@ function applyState(d) {
 }
 
 function startCooldown(sec) {
+    sec = parseInt(sec, 10);
+    if (isNaN(sec) || sec <= 0) {
+        sec = 3;
+    }
     const btn = $('attack-btn');
     btn.disabled = true;
     let remain = sec;
@@ -108,7 +112,7 @@ $('attack-btn').addEventListener('click', () => {
         if (d.ended) {
             setTimeout(() => location.href = '/', 1200);
         } else {
-            startCooldown(d.cooldown);
+            startCooldown(d.cooldown || d.remaining);
         }
     }).catch(() => {
         btn.disabled = false;
