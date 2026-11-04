@@ -104,6 +104,8 @@ function startCooldown(sec) {
 $('attack-btn').addEventListener('click', () => {
     const btn = $('attack-btn');
     btn.disabled = true;
+    $('battle-log').textContent = '';   // очищаем старую плашку
+
     send('/battle/attack', 'POST').then(d => {
         if (d.status === 'cooldown') {
             $('battle-log').textContent = d.log;
@@ -118,7 +120,7 @@ $('attack-btn').addEventListener('click', () => {
         }
         applyState(d);
         if (d.ended) {
-            setTimeout(() => location.href = '/', 1200);
+            showResult(d);
         } else {
             startCooldown(d.cooldown + 1);
         }
@@ -127,10 +129,34 @@ $('attack-btn').addEventListener('click', () => {
     });
 });
 
+function showResult(d) {
+    const titles = {
+        won:  '🏆 Победа!',
+        lost: '💀 Поражение',
+        fled: '🏃 Побег',
+    };
+    $('resultTitle').textContent = titles[d.status] || 'Бой завершён';
+    $('resultRewards').textContent = (d.log || '') + (d.rewards || '');
+    $('resultModal').classList.add('open');
+}
+
+$('resultExit').addEventListener('click', () => {
+    location.href = '/';
+});
+
+
 $('flee-btn').addEventListener('click', () => {
     send('/battle/flee', 'POST').then(d => {
         location.href = '/';
     });
 });
 </script>
+<div id="resultModal" class="modal">
+    <div class="modal-card" style="text-align:center;">
+        <h2 id="resultTitle" style="color:#fbbf24;margin-bottom:12px;"></h2>
+        <p id="resultRewards" style="color:#e5e5ea;margin-bottom:20px;"></p>
+        <button type="button" id="resultExit" class="modal-close">Выйти</button>
+    </div>
+</div>
+
 <?= $this->endSection() ?>
