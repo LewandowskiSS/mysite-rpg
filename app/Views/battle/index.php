@@ -47,8 +47,8 @@
     </div>
 </div>
 <script>
-const csrfName  = '<?= csrf_token() ?>';
-const csrfHash  = '<?= csrf_hash() ?>';
+const csrfToken = '<?= csrf_hash() ?>';
+
 const $ = (id) => document.getElementById(id);
 
 function send(url, method) {
@@ -56,9 +56,9 @@ function send(url, method) {
         method: method,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': csrfToken,
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({ [csrfName]: csrfHash })
     }).then(r => r.json());
 }
 
