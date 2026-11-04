@@ -343,3 +343,6 @@ body { padding-bottom: 70px; }
     text-decoration: none;
 }
 .battle-resume:active { background: #7f1d1d; }
+/* Модалка результата боя */
+#resultModal .modal-card h2 { font-size: 1.5rem; }
+#resultModal.open { display: flex; }
